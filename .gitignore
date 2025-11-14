@@ -1,0 +1,7 @@
+# Base de données locale
+db.sqlite3
+
+# Secrets et configurations locales
+.env
+*.secret
+*.key
