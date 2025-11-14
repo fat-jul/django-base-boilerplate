@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,8 +7,10 @@
     <title>Project name</title>
 </head>
 <body>
+{% include 'partials/messages.html' %} 
 
-    {% block content %}
+    {% block layout %}
+    
     {% endblock %}
     
 </body>
