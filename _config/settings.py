@@ -119,14 +119,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 
 STATIC_ROOT = BASE_DIR / 'staticfiles' # pour le python manage.py collectstatic en production
-STATIC_FILES_DIR = [ BASE_DIR / 'static'] # Tous les fichiers static dans les applications sont reconnus automatiquement par django, ce chemin ajoute un dossier en plus en dehors des appli.
+STATICFILES_DIRS = [ BASE_DIR / 'static'] # Tous les fichiers static dans les applications sont reconnus automatiquement par django, ce chemin ajoute un dossier en plus en dehors des appli.
 
 
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'mediafiles'
 
 
