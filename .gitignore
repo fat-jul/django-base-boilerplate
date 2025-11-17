@@ -8,6 +8,7 @@ db.sqlite3
 
 # Métadonnées dossier MacOS
 .DS_Store
+.vscode
 
 # Fichiers python compilés
 __pycache__/

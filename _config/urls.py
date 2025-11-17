@@ -5,6 +5,7 @@ from django.conf import settings #Bonne pratique, meilleur que 'from .settings i
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('', include('core.urls')),
 ]
 
