@@ -5,10 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/src/output.css' %}">
-    <title>Project name</title>
+    
+    {% block extra_css %}{% endblock %}
+
+    <title>{% block head_title %}{% endblock head_title %}
+    </title>
+        {% block extra_head %}
+        {% endblock extra_head %}
 </head>
-<body class="h-screen flex flex-col">
-{% include 'partials/messages.html' %} 
+<body class="h-screen flex flex-col bg-base-200">
+{% include 'partials/messages.html' %}
 
     {% block layout %}
     

@@ -1,0 +1,133 @@
+{% load allauth %}
+{% if attrs.type == "checkbox" or attrs.type == "radio" %}
+    <div class="form-control mb-4">
+        <label class="cursor-pointer label justify-start gap-3">
+            <span class="label-text">
+                {% slot label %}
+                {% endslot %}
+            </span>
+            <input {% if attrs.required %}required{% endif %}
+                   name="{{ attrs.name }}"
+                   class="checkbox {% if attrs.type == 'radio' %}radio{% endif %}"
+                   id="{{ attrs.id }}"
+                   {% if attrs.value is not None %}value="{{ attrs.value }}"{% endif %}
+                   {% if attrs.disabled %}disabled{% endif %}
+                   type="{{ attrs.type }}">
+
+        </label>
+        {% if slots.help_text %}
+            <div class="text-sm text-base-content/70 mt-1">
+                {% slot help_text %}
+                {% endslot %}
+            </div>
+        {% endif %}
+    </div>
+{% elif attrs.type == "textarea" %}
+    <div class="form-control mb-4 ">
+        <label for="{{ attrs.id }}" class="label">
+            <span class="label-text">
+                {% slot label %}
+                {% endslot %}
+            </span>
+        </label>
+        <textarea {% if attrs.required %}required{% endif %}
+                  {% if attrs.rows %}rows="{{ attrs.rows }}"{% endif %}
+                  class="textarea textarea-bordered"
+                  name="{{ attrs.name }}"
+                  {% if attrs.readonly %}readonly{% endif %}
+                  id="{{ attrs.id }}"
+                  {% if attrs.disabled %}disabled{% endif %}>{% slot value %}{% endslot %}</textarea>
+    </div>
+{% elif attrs.type == "hidden" %}
+    <input {% if attrs.required %}required{% endif %}
+           name="{{ attrs.name }}"
+           id="{{ attrs.id }}"
+           {% if attrs.value is not None %}value="{{ attrs.value }}"{% endif %}
+           type="hidden">
+{% elif attrs.type == "select" %}
+    <div class="form-control mb-4">
+        {% if not attrs.unlabeled %}
+            <label for="{{ attrs.id }}" class="label">
+                <span class="label-text">
+                    {% slot label %}
+                    {% endslot %}
+                </span>
+            </label>
+        {% endif %}
+        <select id="{{ attrs.id }}" name="{{ attrs.name }}" class="select select-bordered">
+            {% for option in attrs.choices %}
+                <option {% if option.0 == attrs.value %}selected{% endif %}
+                        value="{{ option.0 }}">{{ option.1 }}</option>
+            {% endfor %}
+        </select>
+        {% if attrs.unlabeled %}
+            <label for="{{ attrs.id }}" class="label">
+                <span class="label-text">
+                    {% slot label %}
+                    {% endslot %}
+                </span>
+            </label>
+        {% endif %}
+    </div>
+{% else %}
+    <div class="form-control mb-4">
+        {% if not attrs.unlabeled %}
+            <label for="{{ attrs.id }}" class="label">
+                <span class="label-text">
+                    {% slot label %}
+                    {% endslot %}
+                </span>
+            </label>
+        {% endif %}
+        <!-- Input texte -->
+        <input {% if attrs.required %}required{% endif %}
+               name="{{ attrs.name }}"
+               {% if attrs.placeholder %}placeholder="{{ attrs.placeholder }}" {% elif attrs.unlabeled %}placeholder="{% slot label %}{% endslot %}"{% endif %}
+               class="input input-bordered {% if attrs.errors %}input-error{% endif %}"
+               id="{{ attrs.id }}"
+               {% if attrs.readonly %}readonly{% endif %}
+               {% if attrs.disabled %}disabled{% endif %}
+               {% if attrs.tabindex %}tabindex="{{ attrs.tabindex }}"{% endif %}
+               {% if attrs.style %}style="{{ attrs.style }}"{% endif %}
+               {% if attrs.autocomplete %}autocomplete="{{ attrs.autocomplete }}"{% endif %}
+               {% if attrs.value is not None %}value="{{ attrs.value }}"{% endif %}
+               type="{{ attrs.type }}">
+        {% if attrs.unlabeled %}
+            <label for="{{ attrs.id }}" class="label">
+                <!--<span class="label-text text-xs">
+                    {% slot label %}
+                    {% endslot %}
+                </span>-->
+            </label>
+        {% endif %}
+        {% if slots.help_text %}
+            <div class="dropdown dropdown-start">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-xs">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <div tabindex="0" class="dropdown-content card card-compact w-60 p-1 shadow bg-base-100">
+                <div class="card-body">
+                <span class="text-sm text-base-content/70">
+                    {% if slots.help_text %}
+                    {% slot help_text %}
+                    {% endslot %}
+                    {% endif %}
+                </span>
+                </div>
+            </div>
+            </div>
+        {% endif %}
+        {% if attrs.errors %}
+            {% for error in attrs.errors %}
+                <div role="alert" class="text-error text-sm mt-1 flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {{ error }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endif %}

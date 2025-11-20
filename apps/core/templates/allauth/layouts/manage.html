@@ -1,0 +1,89 @@
+{% extends "layouts/base-allauth.html" %}
+{% load i18n %}
+{% load allauth %}
+
+{% block body %}
+<div class="flex bg-base-200">
+    {# Menu latéral #}
+    <aside class="w-64 bg-base-100 pt-10 p-4">
+        <ul class="menu">
+            {% url 'account_email' as email_url_ %}
+            {% if email_url_ %}
+                <li>
+                    <a href="{{ email_url_ }}" class="{% if request.resolver_match.url_name == 'account_email' %}active{% endif %}">
+                        {% trans "Change Email" %}
+                    </a>
+                </li>
+            {% endif %}
+
+            {% url 'account_change_password' as change_password_url_ %}
+            {% if change_password_url_ %}
+                <li>
+                    <a href="{{ change_password_url_ }}" class="{% if request.resolver_match.url_name == 'account_change_password' %}active{% endif %}">
+                        {% trans "Change Password" %}
+                    </a>
+                </li>
+            {% endif %}
+
+            {% url 'account_change_phone' as phone_url_ %}
+            {% if phone_url_ %}
+                <li>
+                    <a href="{{ phone_url_ }}" class="{% if request.resolver_match.url_name == 'account_change_phone' %}active{% endif %}">
+                        {% trans "Change Phone" %}
+                    </a>
+                </li>
+            {% endif %}
+
+            {% url 'socialaccount_connections' as connections_url_ %}
+            {% if connections_url_ %}
+                <li>
+                    <a href="{{ connections_url_ }}" class="{% if request.resolver_match.url_name == 'socialaccount_connections' %}active{% endif %}">
+                        {% trans "Third-Party Accounts" %}
+                    </a>
+                </li>
+            {% endif %}
+
+            {% url 'mfa_index' as mfa_index_url_ %}
+            {% if mfa_index_url_ %}
+                <li>
+                    <a href="{{ mfa_index_url_ }}" class="{% if request.resolver_match.url_name == 'mfa_index' %}active{% endif %}">
+                        {% trans "Two-Factor Authentication" %}
+                    </a>
+                </li>
+            {% endif %}
+
+            {% url 'usersessions_list' as usersessions_list_url_ %}
+            {% if usersessions_list_url_ %}
+                <li>
+                    <a href="{{ usersessions_list_url_ }}" class="{% if request.resolver_match.url_name == 'usersessions_list' %}active{% endif %}">
+                        {% trans "Sessions" %}
+                    </a>
+                </li>
+            {% endif %}
+
+            <li>
+                <a href="{% url 'account_logout' %}" class="text-error">
+                    {% trans "Logout" %}
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    {# Contenu principal #}
+    <main class="flex-1">
+        <div id="content" class="max-w-4xl mx-auto bg-base-100 rounded-xl shadow-md p-6">
+            {% if messages %}
+                <div class="pt-4 space-y-2">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+</div>
+{% endblock %}

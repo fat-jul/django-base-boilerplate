@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr'
 
 TIME_ZONE = 'UTC'
 
@@ -146,3 +146,17 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+#Paramètre : none mandatory ou optional
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+#Envoi des mails dans le terminal
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#Page de redirection vers le profil ou une autre page
+LOGIN_REDIRECT_URL = 'test'
+
+ACCOUNT_SIGNUP_FIELDS = ['username*', 'email', 'password1*', 'password2*']
+
+
+ACCOUNT_LOGIN_METHODS = {'email','username'}

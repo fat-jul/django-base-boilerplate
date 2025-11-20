@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block extra_css %}
+<style>
+  a:not([class]) {
+    text-decoration: underline;
+    color: #1d4ed8;
+  }
+  a:not([class]):hover {
+    color: #1e40af;
+  }
+</style>
+{% endblock %}
+{% load i18n %}
+        
+    {% block layout %}
+    {% include 'partials/header.html' %}
+
+        <div class="flex items-center justify-center h-screen ">
+            {% block body %}
+                {% block content %}
+                {% endblock content %}
+            {% endblock body %}
+            {% block extra_body %}
+            {% endblock extra_body %}
+        </div>
+
+    {% include 'partials/footer.html' %}
+    {% endblock layout%}
+

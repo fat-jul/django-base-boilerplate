@@ -1,7 +1,7 @@
 <div class="navbar bg-primary text-primary-content shadow-sm">
 
   <div class="navbar-start">
-    <a class="btn btn-primary text-xl">Project name</a>
+    <a href="{% url 'index' %}" class="btn btn-primary text-xl">Project name</a>
   </div>
 
   {% if user.is_authenticated %}
@@ -9,15 +9,15 @@
       <div class="dropdown text-black dropdown-end">
         <div tabindex="0" role="button" class="btn btn-primary m-1">Bienvenue {{user.username}}</div>
         <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-          <li><a href="" >Profil</a></li>
-          <li><a href="" >Se déconnecter</a></li>
+          <li><a class="" href="{% url 'account_logout' %}" >Se déconnecter</a></li>
+          <li><a class="" href="{% url 'account_change_password' %}" >Changer mot de passe</a></li>
         </ul>
       </div>
     </div>
   {% else %}
     <div class="navbar-end">
-      <a href="" class="btn btn-primary text-xl">Se connecter</a>
-      <a href="" class="btn btn-primary text-xl">Créer un compte</a>
+      <a href="{% url 'account_login' %}" class="btn btn-primary text-xl">Se connecter</a>
+      <a href="{% url 'account_signup' %}" class="btn btn-primary text-xl">Créer un compte</a>
     </div>
   {% endif %}
   
